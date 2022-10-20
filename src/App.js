@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Dashboard from './components/Dashboard'
 import Login from './components/Login'
@@ -16,10 +17,11 @@ function App() {
           element={
             <div>
               <Navbar />
-              <Dashboard />{' '}
+              <Dashboard />
             </div>
           }
         ></Route>
+
         {/* <Login />
         </Route>
         <Route path="/register">

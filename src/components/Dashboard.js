@@ -5,23 +5,32 @@ import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom'
 
 const Dashboard = () => {
-  const [name, setName] = useState('')
+  // const [name, setName] = useState('')
   const [token, setToken] = useState('')
   const [expire, setExpire] = useState('')
   const [users, setUsers] = useState([])
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
   const navigate = useNavigate()
 
   useEffect(() => {
     refreshToken()
     getUsers()
+    // getUserInfo()
   }, [])
 
+  // const getUserInfo = async () => {
+  //   const resp = await axios.post('http://localhost:5000/info', {
+  //     email: 'pedrohenri3601@gmail.com'
+  //   })
+  //   setName(resp.data.name)
+  //   setEmail(resp.data.email)
+  // }
   const refreshToken = async () => {
     try {
       const response = await axios.get('http://localhost:5000/token')
       setToken(response.data.accessToken)
       const decoded = jwt_decode(response.data.accessToken)
-      setName(decoded.name)
       setExpire(decoded.exp)
     } catch (error) {
       if (error.response) {
@@ -41,6 +50,7 @@ const Dashboard = () => {
         setToken(response.data.accessToken)
         const decoded = jwt_decode(response.data.accessToken)
         setName(decoded.name)
+        setEmail(decoded.email)
         setExpire(decoded.exp)
       }
       return config
@@ -61,7 +71,9 @@ const Dashboard = () => {
 
   return (
     <div className="container mt-5">
-      <h1>Welcome Back: {name}</h1>
+      <h1>
+        Welcome Back: <b>{name}</b>. Your email is: <b>{email}</b>
+      </h1>
       <table className="table is-striped is-fullwidth">
         <thead>
           <tr>

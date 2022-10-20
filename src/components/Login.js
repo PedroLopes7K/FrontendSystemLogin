@@ -11,10 +11,11 @@ const Login = () => {
   const Auth = async e => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:5000/login', {
+      let res = await axios.post('http://localhost:5000/login', {
         email: email,
         password: password
       })
+      console.log(res)
       navigate('/dashboard')
     } catch (error) {
       if (error.response) {
